@@ -40,11 +40,13 @@
             android:textColorHint="#FFFFFF">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etCorreo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#DE754C"
                 android:hint="Correo"
-                android:textColor="#000000"
+                android:textColor="#FBF6F6"
+                android:textColorHint="#FBF9F9"
                 android:textSize="24sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -56,17 +58,21 @@
             app:hintTextColor="#F8F1F1">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etContraseña"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#DE754C"
                 android:hint="Contraseña"
+                android:password="true"
+                android:textColor="#F8F5F5"
+                android:textColorHint="#F6F4F4"
                 android:textSize="24sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnLogFB"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -78,7 +84,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnLogTW"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -87,10 +93,10 @@
         android:text="Login with Twitter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/btnLogFB" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btnLogGoogle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -99,7 +105,7 @@
         android:text="Login with Google"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintTop_toBottomOf="@+id/btnLogTW" />
 
     <TextView
         android:id="@+id/textView6"
