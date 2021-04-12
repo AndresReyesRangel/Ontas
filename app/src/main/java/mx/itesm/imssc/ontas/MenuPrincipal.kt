@@ -12,6 +12,8 @@ class MenuPrincipal : AppCompatActivity() {
         configurarMenu()
     }
 
+    //Esta funcion la hizo Javier Martínez
+    //Es la configuración del nav menú
     private fun configurarMenu() {
         menuNavegacion.setOnNavigationItemSelectedListener { item ->
             when(item.itemId){
