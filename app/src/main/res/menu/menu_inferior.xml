@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navCuenta"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="Mi Cuenta" />
+    <item
+        android:id="@+id/navClientes"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="Clientes" />
+    <item
+        android:id="@+id/navNuevo"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="Nuevo" />
+    <item
+        android:id="@+id/navHistorial"
+        android:icon="@android:drawable/ic_menu_recent_history"
+        android:title="Historial" />
+    <item
+        android:id="@+id/navOpciones"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:title="Opciones" />
+</menu>
