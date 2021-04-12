@@ -6,7 +6,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import kotlinx.android.synthetic.main.activity_main.*
 import mx.itesm.imssc.ontas.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
