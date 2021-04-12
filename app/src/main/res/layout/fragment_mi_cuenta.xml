@@ -37,11 +37,16 @@
             android:layout_height="wrap_content"
             android:text="Nombre:" />
 
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/grafica" />
+
         <TextView
             android:id="@+id/tvAunNoSeQue"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 
