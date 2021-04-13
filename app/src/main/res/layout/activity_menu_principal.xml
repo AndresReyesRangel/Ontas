@@ -11,6 +11,8 @@
         android:layout_width="411dp"
         android:layout_height="49dp"
         android:background="#DE754C"
+        app:itemIconTint="#353535"
+        app:itemTextColor="#353535"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

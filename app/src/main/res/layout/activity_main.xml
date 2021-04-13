@@ -37,7 +37,11 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textColorHint="#FFFFFF">
+            android:textColorHint="#FFFFFF"
+            app:boxStrokeColor="#FAF6F6"
+            app:endIconTint="#FFFFFF"
+            app:hintTextColor="#FDFBFB"
+            app:startIconTint="#FAF8F8">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etCorreo"
@@ -55,6 +59,7 @@
             android:layout_height="match_parent"
             android:background="#DE754C"
             android:textColorHint="#FAF6F6"
+            app:boxStrokeColor="#F8F6F6"
             app:hintTextColor="#F8F1F1">
 
             <com.google.android.material.textfield.TextInputEditText

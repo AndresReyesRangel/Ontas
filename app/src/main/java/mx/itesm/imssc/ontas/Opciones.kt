@@ -20,4 +20,10 @@ class Opciones : Fragment() {
         return inflater.inflate(R.layout.fragment_opciones, container, false)
     }
 
+    //Falta conectar a firebase para que haga la jalación :)
+    /**fun hacerSignOut(v: View){
+        AuthUI.getInstance()
+                .signOut(this)
+    }*/
+
 }

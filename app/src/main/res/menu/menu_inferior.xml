@@ -4,15 +4,15 @@
 
     <item
         android:id="@+id/navCuenta"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@drawable/silueta_icon"
         android:title="Mi Cuenta" />
     <item
         android:id="@+id/navClientes"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@drawable/contactos"
         android:title="Clientes" />
     <item
         android:id="@+id/navNuevo"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@drawable/mapa"
         android:title="Nuevo" />
     <item
         android:id="@+id/navHistorial"
@@ -20,6 +20,6 @@
         android:title="Historial" />
     <item
         android:id="@+id/navOpciones"
-        android:icon="@android:drawable/ic_menu_preferences"
+        android:icon="@drawable/configuracion"
         android:title="Opciones" />
 </menu>
