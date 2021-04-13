@@ -15,12 +15,12 @@ class HistorialFrag : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        configurarRV()
+        //configurarRV()
     }
 
     private fun configurarRV() {
-        val layout= LinearLayoutManager(fragment.context)
-        rvClientes.layoutManager=layout
+        //val layout= LinearLayoutManager(fragment.context)
+        //rvClientes.layoutManager=layout
 
         val arrClientes=crearArrClientes()
         val adaptador= AdaptadorTarjetas(arrClientes)

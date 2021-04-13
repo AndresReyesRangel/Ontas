@@ -17,25 +17,33 @@ class MenuPrincipal : AppCompatActivity() {
     private fun configurarMenu() {
         menuNavegacion.setOnNavigationItemSelectedListener { item ->
             when(item.itemId){
+
                 R.id.navCuenta ->{
-                    println("cuenta")
+
+                    val fragMiCuenta = MiCuentaFrag()
+                    supportFragmentManager.beginTransaction().replace(R.id.contenedorFragmentos, fragMiCuenta).commit()
                 }
 
                 R.id.navClientes->{
-                    println("clientes")
+
                 }
 
                 R.id.navNuevo->{
-                    println("nuevo")
+
+                    val fragPantallaPrincipal = MapaPantallaPrincipal()
+                    supportFragmentManager.beginTransaction().replace(R.id.contenedorFragmentos, fragPantallaPrincipal).commit()
                 }
 
                 R.id.navHistorial->{
+
                     val fragHistorial = HistorialFrag()
-                    supportFragmentManager.beginTransaction().replace(R.id.fragment, fragHistorial).commit()
+                    supportFragmentManager.beginTransaction().replace(R.id.contenedorFragmentos, fragHistorial).commit()
                 }
 
                 R.id.navOpciones->{
-                    println("opciones")
+
+                    val fragOpciones = Opciones()
+                    supportFragmentManager.beginTransaction().replace(R.id.contenedorFragmentos, fragOpciones).commit()
                 }
             }
             true
