@@ -30,7 +30,8 @@ class MenuPrincipal : AppCompatActivity() {
                 }
 
                 R.id.navHistorial->{
-                    println("historial")
+                    val fragHistorial = HistorialFrag()
+                    supportFragmentManager.beginTransaction().replace(R.id.fragment, fragHistorial).commit()
                 }
 
                 R.id.navOpciones->{
