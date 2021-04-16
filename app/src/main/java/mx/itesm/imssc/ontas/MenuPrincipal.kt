@@ -25,7 +25,8 @@ class MenuPrincipal : AppCompatActivity() {
                 }
 
                 R.id.navClientes->{
-
+                    val fragNuevoCliente = FragNuevoCliente()
+                    supportFragmentManager.beginTransaction().replace(R.id.contenedorFragmentos, fragNuevoCliente).commit()
                 }
 
                 R.id.navNuevo->{
