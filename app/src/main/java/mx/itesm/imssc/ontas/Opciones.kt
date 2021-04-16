@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.firebase.ui.auth.AuthUI
 
 class Opciones : Fragment() {
 
@@ -21,7 +22,7 @@ class Opciones : Fragment() {
     }
 
     //Falta conectar a firebase para que haga la jalación :)
-    /**fun hacerSignOut(v: View){
+    /*fun hacerSignOut(v: View){
         AuthUI.getInstance()
                 .signOut(this)
     }*/
