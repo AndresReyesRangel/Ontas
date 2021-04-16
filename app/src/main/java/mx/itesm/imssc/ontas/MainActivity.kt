@@ -1,5 +1,5 @@
 //ARRIBA EL BOQUITA PAPA
-//Comentario para el
+//Comentario para el push
 package mx.itesm.imssc.ontas
 
 import android.content.Intent
