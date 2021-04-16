@@ -9,10 +9,11 @@ import kotlinx.android.synthetic.main.tarjetas.view.*
 //Autor Javier Martinez
 //Esta clase es para administrar las tarjetas de los clientes
 class AdaptadorTarjetas(private val arrDatos: Array<Cliente>):
-
     RecyclerView.Adapter<AdaptadorTarjetas.VistaRenglon>() {
+
     class VistaRenglon(val vistaRenglonCliente: View) : RecyclerView.ViewHolder(vistaRenglonCliente){
         fun set(cliente: Cliente){
+            println("cliente: $cliente")
             vistaRenglonCliente.tvNombreCliente.text=cliente.nombreCliente
             vistaRenglonCliente.tvDescripcionObjeto.text=cliente.descripcionObjeto
             //Imagen pendiente para descargar de internet
@@ -29,9 +30,11 @@ class AdaptadorTarjetas(private val arrDatos: Array<Cliente>):
     override fun onBindViewHolder(holder: VistaRenglon, position: Int) {
         val clienteTarjeta=arrDatos[position]
         holder.set(clienteTarjeta)
+        println("Creando renglon $position")
     }
 
     override fun getItemCount(): Int {
+        println("imprimendo el tamaño: ${arrDatos.size}")
         return arrDatos.size
     }
 }
