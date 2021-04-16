@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "653106214314",
+    "project_id": "ontas-17a3a",
+    "storage_bucket": "ontas-17a3a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:653106214314:android:efbd61129907590b6a27d3",
+        "android_client_info": {
+          "package_name": "mx.itesm.imssc.ontas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "653106214314-5u3isublgqprtgk2v9q9a1bui8ggmi8p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIXclgCLXIeeotiF0EYnk42d4Udu9OL30"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "653106214314-5u3isublgqprtgk2v9q9a1bui8ggmi8p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
