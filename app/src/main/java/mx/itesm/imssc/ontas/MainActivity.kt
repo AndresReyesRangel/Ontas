@@ -22,6 +22,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         mAuth = FirebaseAuth.getInstance()
+
+        btnLogGoogle.setOnClickListener{
+            val intInicioSesion = Intent(baseContext, MenuPrincipal::class.java)
+            startActivity(intInicioSesion)
+        }
     }
 
     fun botonInicio(v: View){
