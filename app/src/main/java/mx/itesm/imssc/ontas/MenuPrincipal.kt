@@ -10,6 +10,7 @@ class MenuPrincipal : AppCompatActivity() {
         setContentView(R.layout.activity_menu_principal)
 
         configurarMenu()
+
     }
 
     //Esta funcion la hizo Javier Martínez
