@@ -8,14 +8,14 @@ import kotlinx.android.synthetic.main.tarjetas.view.*
 
 //Autor Javier Martinez
 //Esta clase es para administrar las tarjetas de los clientes
-class AdaptadorTarjetas(private val arrDatos: Array<Cliente>):
+class AdaptadorTarjetas(private val arrDatoes: Array<UsuarioGenerador>):
     RecyclerView.Adapter<AdaptadorTarjetas.VistaRenglon>() {
 
     class VistaRenglon(val vistaRenglonCliente: View) : RecyclerView.ViewHolder(vistaRenglonCliente){
-        fun set(cliente: Cliente){
-            println("cliente: $cliente")
-            vistaRenglonCliente.tvNombreCliente.text=cliente.nombreCliente
-            vistaRenglonCliente.tvDescripcionObjeto.text=cliente.descripcionObjeto
+        fun set(usuarioGenerador: UsuarioGenerador){
+            println("cliente: $usuarioGenerador")
+            vistaRenglonCliente.tvNombreCliente.text=usuarioGenerador.nombreCliente
+            vistaRenglonCliente.tvDescripcionObjeto.text=usuarioGenerador.descripcionObjeto
             //Imagen pendiente para descargar de internet
             //vistaRenglonCliente.imgCliente.
         }
@@ -28,14 +28,14 @@ class AdaptadorTarjetas(private val arrDatos: Array<Cliente>):
 
     //Pedir datos de un renglon
     override fun onBindViewHolder(holder: VistaRenglon, position: Int) {
-        val clienteTarjeta=arrDatos[position]
+        val clienteTarjeta=arrDatoes[position]
         holder.set(clienteTarjeta)
         println("Creando renglon $position")
     }
 
     override fun getItemCount(): Int {
-        println("imprimendo el tamaño: ${arrDatos.size}")
-        return arrDatos.size
+        println("imprimendo el tamaño: ${arrDatoes.size}")
+        return arrDatoes.size
     }
 }
 

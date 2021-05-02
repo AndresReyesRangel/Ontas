@@ -15,13 +15,13 @@ import kotlinx.android.synthetic.main.fragment_frag_nuevo_cliente.*
 class FragNuevoCliente : Fragment() {
 
     lateinit var arrTokens: MutableList<String>
-    lateinit var  arrCliente: MutableList<Cliente>
+    lateinit var  arrUsuarioGenerador: MutableList<UsuarioGenerador>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arrTokens = mutableListOf()
-        arrCliente = mutableListOf()
+        arrUsuarioGenerador = mutableListOf()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -59,7 +59,7 @@ class FragNuevoCliente : Fragment() {
     }
 
     private fun agregarCliente(){
-        arrCliente.add(Cliente(inputToken.text.toString(),inputProducto.text.toString()))
+        arrUsuarioGenerador.add(UsuarioGenerador(inputToken.text.toString(),inputProducto.text.toString()))
     }
 
     private fun quitarTexto(){

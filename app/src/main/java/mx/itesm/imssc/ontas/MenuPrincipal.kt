@@ -1,5 +1,6 @@
 package mx.itesm.imssc.ontas
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_menu_principal.*
@@ -9,8 +10,16 @@ class MenuPrincipal : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu_principal)
 
+        configurarFAB()
         configurarMenu()
 
+    }
+
+    private fun configurarFAB() {
+        fabAgregar.setOnClickListener {
+            val intAgregarCambio = Intent(baseContext,AgregarCambio::class.java)
+            startActivity(intAgregarCambio)
+        }
     }
 
     //Esta funcion la hizo Javier Martínez

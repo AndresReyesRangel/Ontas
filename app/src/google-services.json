@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "620949753442",
+    "firebase_url": "https://ontas-b2df2-default-rtdb.firebaseio.com",
+    "project_id": "ontas-b2df2",
+    "storage_bucket": "ontas-b2df2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:620949753442:android:c09d711a575aa7f2348b3b",
+        "android_client_info": {
+          "package_name": "mx.itesm.imssc.ontas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "620949753442-rrl9huh2tj0jffun5qrseebu1rpqgqjr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mx.itesm.imssc.ontas",
+            "certificate_hash": "b7e2ecc6c5e8a734d14c2eafaeeb752d106ba4fa"
+          }
+        },
+        {
+          "client_id": "620949753442-uj47ltbopijuu4q0p2mf14cc7guk2afp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCp8Qkw_51JHPVRJfcGxcNk-sIkLEZXtfI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "620949753442-uj47ltbopijuu4q0p2mf14cc7guk2afp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
