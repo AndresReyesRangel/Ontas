@@ -51,10 +51,15 @@ class AgregarCambio : AppCompatActivity() {
                 tokenGenerator=(1000..100000).random()
             }
         }
-
+        //se agrega a base de datos el token
         tvTokenGenerado.setText("$tokenGenerator")
-        val escritura=baseDatos.getReference("/Token/$tokenGenerator/UsuarioGenerador/")
-        escritura.setValue(clienteGenerador)
+        val escrituraToken=baseDatos.getReference("/Token/$tokenGenerator/UsuarioGenerador/")
+        escrituraToken.setValue(clienteGenerador)
+
+        //se agrega el historial de los tokens generados
+        val uidUsuarioGenerador = FirebaseAuth.getInstance().currentUser.uid
+        val  escrituraHistorial=baseDatos.getReference("/$uidUsuarioGenerador/TokensGenerados/")
+        escrituraHistorial.setValue(tokenGenerator)
     }
 
     //Agregar a quien recibe el token
@@ -73,6 +78,11 @@ class AgregarCambio : AppCompatActivity() {
                 valido=true
                 val escritura=baseDatos.getReference("/Token/$token/UsuarioRecibe/")
                 escritura.setValue(usuario)
+
+                //se agrega el historial de los tokens agregados
+                val uidUsuarioRecibe = FirebaseAuth.getInstance().currentUser.uid
+                val  escrituraHistorial=baseDatos.getReference("/$uidUsuarioRecibe/TokensAgregados/")
+                escrituraHistorial.setValue(token)
                 break
             }
         }
