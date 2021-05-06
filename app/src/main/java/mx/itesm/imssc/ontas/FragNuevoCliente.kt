@@ -1,5 +1,6 @@
 package mx.itesm.imssc.ontas
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -65,5 +66,13 @@ class FragNuevoCliente : Fragment() {
     private fun quitarTexto(){
         inputToken.setText("")
         inputProducto.setText("")
+    }
+
+    fun mostrarClientesAct(v: View){
+        configurarBotonClientes()
+    }
+
+    private fun configurarBotonClientes() {
+        
     }
 }

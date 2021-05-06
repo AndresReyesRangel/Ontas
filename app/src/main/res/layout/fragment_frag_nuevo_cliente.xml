@@ -17,7 +17,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="sans-serif-black"
-        android:text="Clientes Activos"
+        android:text="Clientes nuevos"
         android:textColor="#353535"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -26,6 +26,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="0dp"
         android:layout_height="299dp"
         android:layout_marginStart="16dp"
@@ -61,32 +62,22 @@
             android:background="#EDEDED"
             android:orientation="vertical">
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:background="#353535"
-                android:backgroundTint="#353535" />
-
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inputProducto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="#D8DEE3"
-                    android:hint="Producto"
-                    android:textColor="#353535" />
+                    android:hint="Producto" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="17dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:backgroundTint="#FFFFFF"
                 android:orientation="horizontal">
 
@@ -120,8 +111,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
+
             </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_Activos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:text="Cleintes Activos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
