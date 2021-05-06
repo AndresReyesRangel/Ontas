@@ -80,7 +80,7 @@ class AgregarCambio : AppCompatActivity() {
                 //sacamos la descripción del objeto
                 val objeto=baseDatos.getReference("/Token/$token/UsuarioGenerador/").child("objeto").get().toString()
 
-                val usuario=UsuarioRecibe(usuarioRecibe,fotoUsuarioRecibe,objeto,true)
+                val usuario=UsuarioRecibe(usuarioRecibe,objeto,true,fotoUsuarioRecibe)
 
                 val escritura=baseDatos.getReference("/Token/$token/UsuarioRecibe/")
                 escritura.setValue(usuario)

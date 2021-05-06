@@ -35,11 +35,11 @@ class HistorialFrag : Fragment() {
     //Cambiar cuando se saque la info por firebase
     private fun crearArrClientes(): Array<UsuarioRecibe> {
 
-        /*return arrayOf(
-                UsuarioGenerador("Andres Morales","Audifonos Logitech"),
-                UsuarioGenerador("Cesar Rivera","Xbox series X"),
-                UsuarioGenerador("Franciso Bolillo","Pc Master Race")
-        )*/
+        return arrayOf(
+                UsuarioRecibe("Andres Morales","nepe","Audifonos Logitech",true),
+                UsuarioRecibe("Cesar Rivera","nepe","Xbox series X",true),
+                UsuarioRecibe("Franciso Bolillo","nepe","Pc Master Race",true)
+        )
 
     }
 
