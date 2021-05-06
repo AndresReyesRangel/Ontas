@@ -1,23 +1,39 @@
 package mx.itesm.imssc.ontas
 
+import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.androidnetworking.AndroidNetworking
+import com.androidnetworking.error.ANError
+import com.androidnetworking.interfaces.BitmapRequestListener
 import kotlinx.android.synthetic.main.tarjetas.view.*
 
 //Autor Javier Martinez
 //Esta clase es para administrar las tarjetas de los clientes
-class AdaptadorTarjetas(private val arrDatoes: Array<UsuarioGenerador>):
+class AdaptadorTarjetas(private val arrDatoes: Array<UsuarioRecibe>):
     RecyclerView.Adapter<AdaptadorTarjetas.VistaRenglon>() {
 
     class VistaRenglon(val vistaRenglonCliente: View) : RecyclerView.ViewHolder(vistaRenglonCliente){
-        fun set(usuarioGenerador: UsuarioGenerador){
-            println("cliente: $usuarioGenerador")
-            vistaRenglonCliente.tvNombreCliente.text=usuarioGenerador.nombreCliente
-            vistaRenglonCliente.tvDescripcionObjeto.text=usuarioGenerador.descripcionObjeto
-            //Imagen pendiente para descargar de internet
-            //vistaRenglonCliente.imgCliente.
+        fun set(usuarioRecibe: UsuarioRecibe){
+            println("cliente: $usuarioRecibe")
+            vistaRenglonCliente.tvNombreCliente.text=usuarioRecibe.nombreCliente
+            vistaRenglonCliente.tvDescripcionObjeto.text=usuarioRecibe.descripcionObjeto
+
+            //Imagen para descargar de internet con el url que nos da la base de datos
+            AndroidNetworking.get(usuarioRecibe.imagen)
+                .build()
+                .getAsBitmap(object: BitmapRequestListener{
+                    override fun onResponse(response: Bitmap?) {
+                        vistaRenglonCliente.imgCliente.setImageBitmap(response)
+                    }
+
+                    override fun onError(anError: ANError?) {
+                        println("Error")
+                    }
+
+                })
         }
     }
 

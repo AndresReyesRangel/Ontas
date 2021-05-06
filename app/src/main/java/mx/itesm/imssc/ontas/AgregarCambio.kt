@@ -70,12 +70,18 @@ class AgregarCambio : AppCompatActivity() {
         val tokenRecibido=tiToken.text.toString().toInt()
         val usuarioRecibe = FirebaseAuth.getInstance().currentUser.displayName
         val fotoUsuarioRecibe = FirebaseAuth.getInstance().currentUser.photoUrl.toString()
-        val usuario=UsuarioRecibe(usuarioRecibe,fotoUsuarioRecibe,true)
+
         //Bandera para ver si existe el token o no
         var valido=false
+
         for(token in arrTokensRegistrados){
             if(token==tokenRecibido){
                 valido=true
+                //sacamos la descripción del objeto
+                val objeto=baseDatos.getReference("/Token/$token/UsuarioGenerador/").child("objeto").get().toString()
+
+                val usuario=UsuarioRecibe(usuarioRecibe,fotoUsuarioRecibe,objeto,true)
+
                 val escritura=baseDatos.getReference("/Token/$token/UsuarioRecibe/")
                 escritura.setValue(usuario)
 
@@ -94,6 +100,7 @@ class AgregarCambio : AppCompatActivity() {
             tvInfoVenta.setText("El token que escribio es incorrecto o no existe")
         }
     }
+
 
     //lee los datos de la base de datos y los mete en el arreglo
     private fun leerDatos(){
