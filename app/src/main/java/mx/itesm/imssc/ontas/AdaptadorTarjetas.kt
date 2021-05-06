@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.tarjetas.view.*
 
 //Autor Javier Martinez
 //Esta clase es para administrar las tarjetas de los clientes
+//aaaaaaa
 class AdaptadorTarjetas(private val arrDatoes: Array<UsuarioRecibe>):
     RecyclerView.Adapter<AdaptadorTarjetas.VistaRenglon>() {
 
