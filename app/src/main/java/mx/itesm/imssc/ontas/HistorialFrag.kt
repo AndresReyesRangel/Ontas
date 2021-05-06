@@ -36,9 +36,9 @@ class HistorialFrag : Fragment() {
     private fun crearArrClientes(): Array<UsuarioRecibe> {
 
         return arrayOf(
-                UsuarioRecibe("Andres Morales","nepe","Audifonos Logitech",true),
-                UsuarioRecibe("Cesar Rivera","nepe","Xbox series X",true),
-                UsuarioRecibe("Franciso Bolillo","nepe","Pc Master Race",true)
+                UsuarioRecibe("Andres Morales","Audifonos Logitech",true),
+                UsuarioRecibe("Cesar Rivera","Xbox series X",true),
+                UsuarioRecibe("Franciso Bolillo","Pc Master Race",true)
         )
 
     }
