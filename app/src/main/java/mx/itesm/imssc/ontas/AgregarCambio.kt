@@ -51,10 +51,15 @@ class AgregarCambio : AppCompatActivity() {
                 tokenGenerator=(1000..100000).random()
             }
         }
-
+        //se agrega a base de datos el token
         tvTokenGenerado.setText("$tokenGenerator")
-        val escritura=baseDatos.getReference("/Token/$tokenGenerator/UsuarioGenerador/")
-        escritura.setValue(clienteGenerador)
+        val escrituraToken=baseDatos.getReference("/Token/$tokenGenerator/UsuarioGenerador/")
+        escrituraToken.setValue(clienteGenerador)
+
+        //se agrega el historial de los tokens generados
+        val uidUsuarioGenerador = FirebaseAuth.getInstance().currentUser.uid
+        val  escrituraHistorial=baseDatos.getReference("/$uidUsuarioGenerador/TokensGenerados/")
+        escrituraHistorial.setValue(tokenGenerator)
     }
 
     //Agregar a quien recibe el token
@@ -65,14 +70,25 @@ class AgregarCambio : AppCompatActivity() {
         val tokenRecibido=tiToken.text.toString().toInt()
         val usuarioRecibe = FirebaseAuth.getInstance().currentUser.displayName
         val fotoUsuarioRecibe = FirebaseAuth.getInstance().currentUser.photoUrl.toString()
-        val usuario=UsuarioRecibe(usuarioRecibe,fotoUsuarioRecibe,true)
+
         //Bandera para ver si existe el token o no
         var valido=false
+
         for(token in arrTokensRegistrados){
             if(token==tokenRecibido){
                 valido=true
+                //sacamos la descripción del objeto
+                val objeto=baseDatos.getReference("/Token/$token/UsuarioGenerador/").child("objeto").get().toString()
+
+                val usuario=UsuarioRecibe(usuarioRecibe,objeto,true,fotoUsuarioRecibe)
+
                 val escritura=baseDatos.getReference("/Token/$token/UsuarioRecibe/")
                 escritura.setValue(usuario)
+
+                //se agrega el historial de los tokens agregados
+                val uidUsuarioRecibe = FirebaseAuth.getInstance().currentUser.uid
+                val  escrituraHistorial=baseDatos.getReference("/$uidUsuarioRecibe/TokensAgregados/")
+                escrituraHistorial.setValue(token)
                 break
             }
         }
@@ -84,6 +100,7 @@ class AgregarCambio : AppCompatActivity() {
             tvInfoVenta.setText("El token que escribio es incorrecto o no existe")
         }
     }
+
 
     //lee los datos de la base de datos y los mete en el arreglo
     private fun leerDatos(){

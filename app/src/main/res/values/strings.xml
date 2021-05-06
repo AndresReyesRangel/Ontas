@@ -5,6 +5,7 @@
 
     <string name="facebook_application_id">893711401485242</string>
     <string name="fb_login_protocol_scheme">fb893711401485242</string>
+    <string name="nombre_usuario">Nombre Usuario</string>
 
 
 </resources>
