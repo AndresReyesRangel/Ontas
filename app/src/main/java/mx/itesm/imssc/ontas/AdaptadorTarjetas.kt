@@ -18,7 +18,7 @@ class AdaptadorTarjetas(private val arrDatoes: Array<UsuarioRecibe>):
 
     class VistaRenglon(val vistaRenglonCliente: View) : RecyclerView.ViewHolder(vistaRenglonCliente){
         fun set(usuarioRecibe: UsuarioRecibe){
-            println("cliente: $usuarioRecibe")
+            //println("cliente: $usuarioRecibe")
             vistaRenglonCliente.tvNombreCliente.text=usuarioRecibe.nombreCliente
             vistaRenglonCliente.tvDescripcionObjeto.text=usuarioRecibe.descripcionObjeto
 
@@ -47,11 +47,11 @@ class AdaptadorTarjetas(private val arrDatoes: Array<UsuarioRecibe>):
     override fun onBindViewHolder(holder: VistaRenglon, position: Int) {
         val clienteTarjeta=arrDatoes[position]
         holder.set(clienteTarjeta)
-        println("Creando renglon $position")
+        //println("Creando renglon $position")
     }
 
     override fun getItemCount(): Int {
-        println("imprimendo el tamaño: ${arrDatoes.size}")
+        //println("imprimendo el tamaño: ${arrDatoes.size}")
         return arrDatoes.size
     }
 }
