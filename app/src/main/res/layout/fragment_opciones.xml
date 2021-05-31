@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="#7C90A0"
+        android:onClick="hacerSignOut"
         android:text="Log Out" />
 
     <Button
@@ -19,6 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="#353535"
+        android:clickable="true"
         android:text="Edit Account" />
 
     <Button

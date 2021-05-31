@@ -52,7 +52,6 @@ class MenuPrincipal : AppCompatActivity() {
                 }
 
                 R.id.navOpciones->{
-
                     val fragOpciones = Opciones()
                     supportFragmentManager.beginTransaction().replace(R.id.contenedorFragmentos, fragOpciones).commit()
                 }
