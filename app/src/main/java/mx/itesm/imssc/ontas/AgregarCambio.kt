@@ -3,12 +3,16 @@ package mx.itesm.imssc.ontas
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.androidnetworking.AndroidNetworking
+import com.androidnetworking.error.ANError
+import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_agregar_cambio.*
+import org.json.JSONObject
 
 //Clase hecha por Javier Martínez
 class AgregarCambio : AppCompatActivity() {
@@ -58,7 +62,7 @@ class AgregarCambio : AppCompatActivity() {
 
         //se agrega el historial de los tokens generados
         val uidUsuarioGenerador = FirebaseAuth.getInstance().currentUser.uid
-        val  escrituraHistorial=baseDatos.getReference("/$uidUsuarioGenerador/TokensGenerados/")
+        val  escrituraHistorial=baseDatos.getReference("/$uidUsuarioGenerador/TokensGenerados/$tokenGenerator")
         escrituraHistorial.setValue(tokenGenerator)
     }
 
@@ -66,6 +70,7 @@ class AgregarCambio : AppCompatActivity() {
     fun tokenAgregado(v: View){
         tokenAgregado()
     }
+
     private fun tokenAgregado(){
         val tokenRecibido=tiToken.text.toString().toInt()
         val usuarioRecibe = FirebaseAuth.getInstance().currentUser.displayName
@@ -77,17 +82,15 @@ class AgregarCambio : AppCompatActivity() {
         for(token in arrTokensRegistrados){
             if(token==tokenRecibido){
                 valido=true
-                //sacamos la descripción del objeto
-                val objeto=baseDatos.getReference("/Token/$token/UsuarioGenerador/").child("objeto").get().toString()
-
-                val usuario=UsuarioRecibe(usuarioRecibe,objeto,true,fotoUsuarioRecibe)
+                val objetoRecuperado=baseDatos.getReference("/Token/$token/UsuarioGenerador/descripcionObjeto/").toString()
+                val usuario=UsuarioRecibe(usuarioRecibe,true,fotoUsuarioRecibe,objetoRecuperado)
 
                 val escritura=baseDatos.getReference("/Token/$token/UsuarioRecibe/")
                 escritura.setValue(usuario)
 
                 //se agrega el historial de los tokens agregados
                 val uidUsuarioRecibe = FirebaseAuth.getInstance().currentUser.uid
-                val  escrituraHistorial=baseDatos.getReference("/$uidUsuarioRecibe/TokensAgregados/")
+                val  escrituraHistorial=baseDatos.getReference("/$uidUsuarioRecibe/TokensAgregados/$token")
                 escrituraHistorial.setValue(token)
                 break
             }
@@ -100,6 +103,7 @@ class AgregarCambio : AppCompatActivity() {
             tvInfoVenta.setText("El token que escribio es incorrecto o no existe")
         }
     }
+
 
 
     //lee los datos de la base de datos y los mete en el arreglo
