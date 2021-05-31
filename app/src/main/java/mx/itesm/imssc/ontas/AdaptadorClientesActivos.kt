@@ -14,9 +14,10 @@ class AdaptadorClientesActivos (private val arrClientesActivos: Array<UsuarioRec
 
         class vistaRenglonAct(val vistaRenglonCliente: View): RecyclerView.ViewHolder(vistaRenglonCliente){
             fun set(cliente: UsuarioRecibe){
-                vistaRenglonCliente.tvNomClienteActivo.text = cliente.nombreCliente
-                //Pendiente la imagen
-                //vistaRenglonCliente.imgPerfilActivo.setImageURI(cliente.imagen)
+                if(cliente.Activo == true){
+                    vistaRenglonCliente.tvNomClienteActivo.text = cliente.nombreCliente
+                    vistaRenglonCliente.tvProducto.text = cliente.descripcionObjeto
+                }
             }
         }
 

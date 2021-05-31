@@ -73,14 +73,13 @@ class FragNuevoCliente : Fragment(), ClickListener {
     }
 
     fun buscar(v: View){
-    }
-
-    fun mostrarClientesAct(v: View){
 
     }
 
     override fun clicked(posicion: Int) {
-        TODO("Not yet implemented")
+        val intClienteAct = Intent(MenuPrincipal(), ClienteActivo::class.java)
+        intClienteAct.putExtra("CLIENTE", posicion)
+        startActivity(intClienteAct)
     }
 
 
