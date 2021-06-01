@@ -49,6 +49,10 @@ class MiCuentaFrag : Fragment() {
 
     }
 
+    fun generarGrafica(){
+        
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

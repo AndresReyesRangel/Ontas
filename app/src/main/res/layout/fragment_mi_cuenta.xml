@@ -43,7 +43,7 @@
             <ImageView
                 android:id="@+id/imgPerfil"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="160dp"
                 app:srcCompat="@drawable/fb"
                 tools:src="@drawable/fb"
                 tools:srcCompat="@drawable/fb" />
