@@ -17,9 +17,10 @@ import kotlinx.android.synthetic.main.fragment_historial.*
 class HistorialFrag : Fragment() {
 
     private lateinit var baseDatos: FirebaseDatabase
-    private lateinit var arrHistorialClientes: Array<UsuarioRecibe>
+    private lateinit var arrHistorial: MutableList<UsuarioRecibe>
     private lateinit var arrHistorialTokensGenerados: MutableList<String>
     private lateinit var arrHistorialTokensAgregados: MutableList<String>
+    private  lateinit var adaptador: AdaptadorTarjetas
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +31,7 @@ class HistorialFrag : Fragment() {
         //separamos los tokens para saber en cual buscar
         arrHistorialTokensGenerados= mutableListOf()
         arrHistorialTokensAgregados= mutableListOf()
+        arrHistorial= mutableListOf()
 
     }
 
@@ -37,8 +39,8 @@ class HistorialFrag : Fragment() {
         val layout= LinearLayoutManager(context)
         rvClientes.layoutManager=layout
 
-        arrHistorialClientes=crearArrClientes()
-        val adaptador= AdaptadorTarjetas(arrHistorialClientes)
+        //arrHistorial=crearArrClientes()
+        adaptador= AdaptadorTarjetas(arrHistorial)
         rvClientes.adapter= adaptador
     }
 
@@ -57,18 +59,23 @@ class HistorialFrag : Fragment() {
         super.onStart()
         configurarRV()
         leerHistorialTokens()
+        println("onStart")
     }
 
     private fun leerHistorialTokens() {
         //Historial de tokens Generados
         val userIUD=FirebaseAuth.getInstance().currentUser.uid
-        val referenciaGenerados= baseDatos.getReference("/Tokens/$userIUD/TokensGenerados/")
+        val referenciaGenerados= baseDatos.getReference("$userIUD/TokensGenerados/")
         referenciaGenerados.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
+                println("Recibe datos"+ snapshot.toString())
+                arrHistorialTokensGenerados.clear()
+                arrHistorial.clear()
                 for(generados in snapshot.children){
                     arrHistorialTokensGenerados.add(generados.key.toString())
-
                 }
+                println(arrHistorialTokensGenerados)
+                checarClientes()
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -77,21 +84,125 @@ class HistorialFrag : Fragment() {
 
         })
 
+
+        
+    }
+    private  fun descargarTokensRecibidos(){
         //Historial de tokens agregados
-        val referenciaAgregados=baseDatos.getReference("/Tokens/$userIUD/TokensAgregados/")
+        val userIUD=FirebaseAuth.getInstance().currentUser.uid
+        val referenciaAgregados=baseDatos.getReference("$userIUD/TokensAgregados/")
         referenciaAgregados.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
+                arrHistorialTokensAgregados.clear()
                 for(agregados in snapshot.children){
                     arrHistorialTokensAgregados.add(agregados.key.toString())
                 }
+                println(arrHistorialTokensAgregados)
+                checarVendedores()
+
             }
 
             override fun onCancelled(error: DatabaseError) {
                 println("Error")
             }
         })
+    }
 
-        
+    //Checa que los vendedores ya hayan marcado la venta desactivada
+    private fun checarVendedores() {
+        for(token in arrHistorialTokensAgregados){
+            val tokenint = token.toInt()
+            val referenciaToken=baseDatos.getReference("Token/$tokenint/UsuarioRecibe")
+            referenciaToken.addValueEventListener(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.hasChildren()) {
+                        val activo = snapshot.child("activo").value.toString()
+                        val activoBool = activo.toBoolean()
+                        if (!activoBool) {
+                            agregarVendedor(tokenint)
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+        }
+    }
+
+    private fun agregarVendedor(tokenint: Int) {
+        val nuevaReferencia=baseDatos.getReference("Token/$tokenint/UsuarioGenerador")
+        nuevaReferencia.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val nombreVendedor=snapshot.child("nombreCliente").value.toString()
+                val descripcionObjeto=snapshot.child("descripcionObjeto").value.toString()
+                val imagenVendedor = snapshot.child("imagen").value.toString()
+                arrHistorial.add(UsuarioRecibe(nombreVendedor,false,imagenVendedor,descripcionObjeto))
+
+                activity?.runOnUiThread {
+                    adaptador.arrDatoes=arrHistorial
+                    adaptador.notifyDataSetChanged()
+                    println("actualizo adaptador")
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                println("Error en agregarVendedor")
+            }
+
+        })
+    }
+
+    //Checa si los clientes ya no estan activos
+    private fun checarClientes() {
+        for(token in arrHistorialTokensGenerados){
+            val tokenint = token.toInt()
+            val referenciaToken=baseDatos.getReference("Token/$tokenint/UsuarioRecibe")
+            referenciaToken.addListenerForSingleValueEvent(object: ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    println("checar cliente"+snapshot)
+                    if (snapshot.hasChildren()) {
+                        val activo = snapshot.child("activo").value.toString()
+                        val activoBool = activo.toBoolean()
+
+                        if (!activoBool) {
+                            val nombreCliente = snapshot.child("nombreCliente").value.toString()
+                            val descripcionObjeto =
+                                snapshot.child("descripcionObjeto").value.toString()
+                            val imagenCliente = snapshot.child("imagen").value.toString()
+
+                            arrHistorial.add(
+                                UsuarioRecibe(
+                                    nombreCliente,
+                                    activoBool,
+                                    imagenCliente,
+                                    descripcionObjeto
+                                )
+                            )
+                            println("Historial despues de checar clientes"+arrHistorial)
+                            activity?.runOnUiThread {
+                                adaptador.arrDatoes=arrHistorial
+                                adaptador.notifyDataSetChanged()
+                                println("actualizo adaptador")
+                            }
+                            descargarTokensRecibidos()
+                        }
+
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    println("no funciono")
+                }
+
+            })
+        }
+        //actualizar adaptador
+
+
+
     }
 
     override fun onCreateView(

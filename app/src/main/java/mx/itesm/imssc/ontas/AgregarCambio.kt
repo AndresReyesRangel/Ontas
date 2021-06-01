@@ -73,20 +73,33 @@ class AgregarCambio : AppCompatActivity() {
 
     private fun tokenAgregado(){
         val tokenRecibido=tiToken.text.toString().toInt()
-        val usuarioRecibe = FirebaseAuth.getInstance().currentUser.displayName
+        val usuarioRecibeNombre = FirebaseAuth.getInstance().currentUser.displayName
         val fotoUsuarioRecibe = FirebaseAuth.getInstance().currentUser.photoUrl.toString()
 
         //Bandera para ver si existe el token o no
         var valido=false
 
         for(token in arrTokensRegistrados){
+            /* Single value listener para recibir la información
+            * cuando tenga la info terminar la escritura
+            * en la base de datos
+            *
+            * */
             if(token==tokenRecibido){
                 valido=true
-                val objetoRecuperado=baseDatos.getReference("/Token/$token/UsuarioGenerador/descripcionObjeto/").toString()
-                val usuario=UsuarioRecibe(usuarioRecibe,true,fotoUsuarioRecibe,objetoRecuperado)
 
-                val escritura=baseDatos.getReference("/Token/$token/UsuarioRecibe/")
-                escritura.setValue(usuario)
+                val referenciaobjetoRecuperado=baseDatos.getReference("/Token/$token/UsuarioGenerador/descripcionObjeto/")
+                referenciaobjetoRecuperado.addListenerForSingleValueEvent(object: ValueEventListener{
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val objetoRecuperado=snapshot.value.toString()
+                        crearEscritura(usuarioRecibeNombre,fotoUsuarioRecibe,objetoRecuperado,token)
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        println("No jalo la lectura")
+                    }
+
+                })
 
                 //se agrega el historial de los tokens agregados
                 val uidUsuarioRecibe = FirebaseAuth.getInstance().currentUser.uid
@@ -104,6 +117,16 @@ class AgregarCambio : AppCompatActivity() {
         }
     }
 
+    private fun crearEscritura(
+        usuarioRecibeNombre: String,
+        fotoUsuarioRecibe: String,
+        objetoRecuperado: String,
+        token: Int
+    ) {
+        val usuario=UsuarioRecibe(usuarioRecibeNombre,true,fotoUsuarioRecibe,objetoRecuperado)
+        val escritura=baseDatos.getReference("/Token/$token/UsuarioRecibe/")
+        escritura.setValue(usuario)
+    }
 
 
     //lee los datos de la base de datos y los mete en el arreglo

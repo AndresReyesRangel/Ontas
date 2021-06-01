@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.tarjetas.view.*
 //Autor Javier Martinez
 //Esta clase es para administrar las tarjetas de los clientes
 //aaaaaaa
-class AdaptadorTarjetas(private val arrDatoes: Array<UsuarioRecibe>):
+class AdaptadorTarjetas(var arrDatoes: MutableList<UsuarioRecibe>):
     RecyclerView.Adapter<AdaptadorTarjetas.VistaRenglon>() {
 
     class VistaRenglon(val vistaRenglonCliente: View) : RecyclerView.ViewHolder(vistaRenglonCliente){
@@ -51,7 +51,7 @@ class AdaptadorTarjetas(private val arrDatoes: Array<UsuarioRecibe>):
     }
 
     override fun getItemCount(): Int {
-        //println("imprimendo el tamaño: ${arrDatoes.size}")
+        println("imprimendo el tamaño: ${arrDatoes.size}")
         return arrDatoes.size
     }
 }
