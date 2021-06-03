@@ -39,27 +39,16 @@ class HistorialFrag : Fragment() {
         val layout= LinearLayoutManager(context)
         rvClientes.layoutManager=layout
 
-        //arrHistorial=crearArrClientes()
         adaptador= AdaptadorTarjetas(arrHistorial)
         rvClientes.adapter= adaptador
     }
 
-    //Cambiar cuando se saque la info por firebase
-    private fun crearArrClientes(): Array<UsuarioRecibe> {
-
-        return arrayOf(
-                UsuarioRecibe("Andres Morales",true),
-                UsuarioRecibe("Cesar Rivera",true),
-                UsuarioRecibe("Franciso Bolillo",true)
-        )
-
-    }
 
     override fun onStart() {
         super.onStart()
         configurarRV()
         leerHistorialTokens()
-        println("onStart")
+        //println("onStart")
     }
 
     private fun leerHistorialTokens() {
@@ -68,13 +57,13 @@ class HistorialFrag : Fragment() {
         val referenciaGenerados= baseDatos.getReference("$userIUD/TokensGenerados/")
         referenciaGenerados.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                println("Recibe datos"+ snapshot.toString())
+                //println("Recibe datos"+ snapshot.toString())
                 arrHistorialTokensGenerados.clear()
                 arrHistorial.clear()
                 for(generados in snapshot.children){
                     arrHistorialTokensGenerados.add(generados.key.toString())
                 }
-                println(arrHistorialTokensGenerados)
+                //println(arrHistorialTokensGenerados)
                 checarClientes()
             }
 
@@ -144,7 +133,7 @@ class HistorialFrag : Fragment() {
                 activity?.runOnUiThread {
                     adaptador.arrDatoes=arrHistorial
                     adaptador.notifyDataSetChanged()
-                    println("actualizo adaptador")
+                    //println("actualizo adaptador")
                 }
             }
 
@@ -162,7 +151,7 @@ class HistorialFrag : Fragment() {
             val referenciaToken=baseDatos.getReference("Token/$tokenint/UsuarioRecibe")
             referenciaToken.addListenerForSingleValueEvent(object: ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    println("checar cliente"+snapshot)
+                    //println("checar cliente"+snapshot)
                     if (snapshot.hasChildren()) {
                         val activo = snapshot.child("activo").value.toString()
                         val activoBool = activo.toBoolean()
@@ -181,11 +170,11 @@ class HistorialFrag : Fragment() {
                                     descripcionObjeto
                                 )
                             )
-                            println("Historial despues de checar clientes"+arrHistorial)
+                            //println("Historial despues de checar clientes"+arrHistorial)
                             activity?.runOnUiThread {
                                 adaptador.arrDatoes=arrHistorial
                                 adaptador.notifyDataSetChanged()
-                                println("actualizo adaptador")
+                                //println("actualizo adaptador")
                             }
                             descargarTokensRecibidos()
                         }

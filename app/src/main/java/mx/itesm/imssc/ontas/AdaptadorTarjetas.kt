@@ -51,7 +51,7 @@ class AdaptadorTarjetas(var arrDatoes: MutableList<UsuarioRecibe>):
     }
 
     override fun getItemCount(): Int {
-        println("imprimendo el tamaño: ${arrDatoes.size}")
+        //println("imprimendo el tamaño: ${arrDatoes.size}")
         return arrDatoes.size
     }
 }
