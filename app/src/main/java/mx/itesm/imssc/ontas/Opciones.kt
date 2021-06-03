@@ -20,6 +20,7 @@ class Opciones : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -37,9 +38,7 @@ class Opciones : Fragment() {
     //Falta conectar a firebase para que haga la jalación :)
 
     fun hacerSignOut(v: View) {
-        AuthUI.getInstance().signOut(contexto)
-        val logOut = Intent(contexto, MainActivity::class.java)
-        startActivity(logOut)
+        FirebaseAuth.getInstance().signOut()
             /*
             .addOnSuccessListener {
             val logOut = Intent(contexto, MainActivity::class.java)

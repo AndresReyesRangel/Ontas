@@ -5,6 +5,7 @@ package mx.itesm.imssc.ontas
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.firebase.ui.auth.AuthUI
@@ -14,6 +15,7 @@ import com.google.firebase.FirebaseOptions
 import com.google.firebase.auth.*
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.core.UserWriteRecord
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_main.*
 import mx.itesm.imssc.ontas.databinding.ActivityMainBinding
 
@@ -35,14 +37,36 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun createAccount(v: View){
+        val intCrearUsuario = Intent(baseContext, CrearUsuario::class.java)
+        startActivity(intCrearUsuario)
+    }
+
     fun botonInicio(v: View){
         configurarBotonInicioSesion()
     }
 
     private fun configurarBotonInicioSesion() {
-
-        val intInicioSesion = Intent(baseContext, MenuPrincipal::class.java)
-        startActivity(intInicioSesion)
+        var email = binding.etCorreo.text
+        var password = binding.etContraseA.text
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email.toString(), password.toString())
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    Log.d(RC_SIGN_IN.toString(), "singInWithEmail:success")
+                    val usuario = FirebaseAuth.getInstance().currentUser
+                    val intInicioSesion = Intent(baseContext, MenuPrincipal::class.java)
+                    println("Bienvenido: ${usuario?.displayName}")
+                    println("Bienvenido: ${usuario?.email}")
+                    println("Bienvenido: ${usuario?.uid}")
+                    startActivity(intInicioSesion)
+                } else {
+                    Log.w(RC_SIGN_IN.toString(), "signInWithEmail:failure", task.exception)
+                    Toast.makeText(
+                        baseContext, "Tienes que crear un usuario primero",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
     }
 
 
@@ -73,9 +97,9 @@ class MainActivity : AppCompatActivity() {
             when(resultCode){
                 RESULT_OK ->{
                     val usuario = FirebaseAuth.getInstance().currentUser
-                    println("Bienvenido: ${usuario.displayName}")
-                    println("Bienvenido: ${usuario.email}")
-                    println("Bienvenido: ${usuario.uid}")
+                    println("Bienvenido: ${usuario?.displayName}")
+                    println("Bienvenido: ${usuario?.email}")
+                    println("Bienvenido: ${usuario?.uid}")
                     val intInicioSesion = Intent(baseContext, MenuPrincipal::class.java)
                     startActivity(intInicioSesion)
                 }
