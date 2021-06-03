@@ -43,9 +43,9 @@ class AgregarCambio : AppCompatActivity() {
     private fun generartoken() {
         //Datos del cliente generador
         val objeto = tiDescripcionObjeto.text.toString()
-        val usuarioGenerador = FirebaseAuth.getInstance().currentUser.displayName
-        val fotoUsuarioGenerador = FirebaseAuth.getInstance().currentUser.photoUrl.toString()
-        val clienteGenerador= UsuarioGenerador(usuarioGenerador,objeto,fotoUsuarioGenerador)
+        val usuarioGenerador = FirebaseAuth.getInstance().currentUser?.displayName
+        val fotoUsuarioGenerador = FirebaseAuth.getInstance().currentUser?.photoUrl.toString()
+        val clienteGenerador= UsuarioGenerador(usuarioGenerador!!,objeto,fotoUsuarioGenerador)
 
         //Token Generado
         var tokenGenerator=(1000..100000).random()
@@ -62,7 +62,7 @@ class AgregarCambio : AppCompatActivity() {
         escrituraToken.setValue(clienteGenerador)
 
         //se agrega el historial de los tokens generados
-        val uidUsuarioGenerador = FirebaseAuth.getInstance().currentUser.uid
+        val uidUsuarioGenerador = FirebaseAuth.getInstance().currentUser?.uid
         val  escrituraHistorial=baseDatos.getReference("/$uidUsuarioGenerador/TokensGenerados/$tokenGenerator")
         escrituraHistorial.setValue(tokenGenerator)
     }
@@ -74,8 +74,8 @@ class AgregarCambio : AppCompatActivity() {
 
     private fun tokenAgregado(){
         val tokenRecibido=tiToken.text.toString().toInt()
-        val usuarioRecibeNombre = FirebaseAuth.getInstance().currentUser.displayName
-        val fotoUsuarioRecibe = FirebaseAuth.getInstance().currentUser.photoUrl.toString()
+        val usuarioRecibeNombre = FirebaseAuth.getInstance().currentUser?.displayName
+        val fotoUsuarioRecibe = FirebaseAuth.getInstance().currentUser?.photoUrl.toString()
 
         //Bandera para ver si existe el token o no
         var valido=false
@@ -93,7 +93,7 @@ class AgregarCambio : AppCompatActivity() {
                 referenciaobjetoRecuperado.addListenerForSingleValueEvent(object: ValueEventListener{
                     override fun onDataChange(snapshot: DataSnapshot) {
                         val objetoRecuperado=snapshot.value.toString()
-                        crearEscritura(usuarioRecibeNombre,fotoUsuarioRecibe,objetoRecuperado,token)
+                        crearEscritura(usuarioRecibeNombre!!,fotoUsuarioRecibe,objetoRecuperado,token)
                     }
 
                     override fun onCancelled(error: DatabaseError) {
@@ -103,7 +103,7 @@ class AgregarCambio : AppCompatActivity() {
                 })
 
                 //se agrega el historial de los tokens agregados
-                val uidUsuarioRecibe = FirebaseAuth.getInstance().currentUser.uid
+                val uidUsuarioRecibe = FirebaseAuth.getInstance().currentUser?.uid
                 val  escrituraHistorial=baseDatos.getReference("/$uidUsuarioRecibe/TokensAgregados/$token")
                 escrituraHistorial.setValue(token)
                 break

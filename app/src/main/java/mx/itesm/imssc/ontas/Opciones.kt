@@ -38,7 +38,7 @@ class Opciones : Fragment() {
     //Falta conectar a firebase para que haga la jalación :)
 
     fun hacerSignOut(v: View) {
-        FirebaseAuth.getInstance().signOut()
+        mAuth.currentUser?.delete()
             /*
             .addOnSuccessListener {
             val logOut = Intent(contexto, MainActivity::class.java)
