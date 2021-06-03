@@ -14,9 +14,10 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_frag_nuevo_cliente.*
+import kotlinx.android.synthetic.main.fragment_historial.*
 
 //Emiliano Javier Gomez Jimenez
-class FragNuevoCliente : Fragment(), ClickListener {
+class FragClientesActivos : Fragment(), ClickListener {
 
     private  lateinit var  baseDatos: FirebaseDatabase
     private  lateinit var arrCliente: MutableList<UsuarioRecibe>
@@ -33,12 +34,14 @@ class FragNuevoCliente : Fragment(), ClickListener {
         arrTokensGenerados= mutableListOf()
         arrTokensAgregados= mutableListOf()
 
+
     }
 
     private fun configurarRV() {
         val layoutManager = LinearLayoutManager(context)
         rvClientesActivos.layoutManager = layoutManager
         adaptador = AdaptadorClientesActivos(arrCliente)
+        rvClientesActivos.adapter = adaptador
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -52,6 +55,8 @@ class FragNuevoCliente : Fragment(), ClickListener {
         configurarRV()
         leerTokensGenerados()
     }
+
+
 
     fun leerTokensGenerados(){
         //tokens Generados

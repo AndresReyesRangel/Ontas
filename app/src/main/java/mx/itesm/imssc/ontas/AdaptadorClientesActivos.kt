@@ -13,29 +13,29 @@ import kotlinx.android.synthetic.main.tarjetas_clientes_activos.view.*
 
 //Autor: Emiliano Gómez
 class AdaptadorClientesActivos (var arrClientesActivos: MutableList<UsuarioRecibe>):
-    RecyclerView.Adapter<AdaptadorClientesActivos.vistaRenglonAct>() {
+    RecyclerView.Adapter<AdaptadorClientesActivos.vistaRenglonAct>()  {
 
     var listener: ClickListener? = null
 
-        class vistaRenglonAct(val vistaRenglonCliente: View): RecyclerView.ViewHolder(vistaRenglonCliente){
-            fun set(cliente: UsuarioRecibe){
-                vistaRenglonCliente.tvNomClienteActivo.text = cliente.nombreCliente
-                vistaRenglonCliente.tvProducto.text = cliente.descripcionObjeto
+    class vistaRenglonAct(val vistaRenglonCliente: View): RecyclerView.ViewHolder(vistaRenglonCliente){
+        fun set(cliente: UsuarioRecibe){
+            vistaRenglonCliente.tvNomClienteActivo.text = cliente.nombreCliente
+            vistaRenglonCliente.tvProducto.text = cliente.descripcionObjeto
 
-                AndroidNetworking.get(cliente.imagen)
-                    .build()
-                    .getAsBitmap(object : BitmapRequestListener{
-                        override fun onResponse(response: Bitmap?) {
-                            vistaRenglonCliente.imgPerfilActivo.setImageBitmap(response)
-                        }
+            AndroidNetworking.get(cliente.imagen)
+                .build()
+                .getAsBitmap(object : BitmapRequestListener{
+                    override fun onResponse(response: Bitmap?) {
+                        vistaRenglonCliente.imgPerfilActivo.setImageBitmap(response)
+                    }
 
-                        override fun onError(anError: ANError?) {
-                            println("Error")
-                        }
-                    })
+                    override fun onError(anError: ANError?) {
+                        println("Error")
+                    }
+                })
 
-            }
         }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): vistaRenglonAct {
         //Crea un renglon

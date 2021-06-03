@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="#FFFFFF"
-    tools:context=".FragNuevoCliente">
+    tools:context=".FragClientesActivos">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
@@ -27,8 +27,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvClientesActivos"
-        android:layout_width="372dp"
-        android:layout_height="619dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
