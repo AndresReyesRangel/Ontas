@@ -30,6 +30,8 @@ class FragNuevoCliente : Fragment(), ClickListener {
         //Conexion con Firebase
         baseDatos = FirebaseDatabase.getInstance()
         arrCliente= mutableListOf()
+        arrTokensGenerados= mutableListOf()
+        arrTokensAgregados= mutableListOf()
 
     }
 
