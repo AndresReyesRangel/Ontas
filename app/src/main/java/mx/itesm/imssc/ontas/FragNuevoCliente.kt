@@ -22,7 +22,8 @@ class FragNuevoCliente : Fragment(), ClickListener {
     private  lateinit var arrCliente: MutableList<UsuarioRecibe>
     private lateinit var arrTokensAgregados: MutableList<String>
     private lateinit var arrTokensGenerados: MutableList<String>
-    private lateinit var arrHistorial: MutableList<UsuarioRecibe>
+
+    private lateinit var  adaptador: AdaptadorClientesActivos
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,10 +35,8 @@ class FragNuevoCliente : Fragment(), ClickListener {
 
     private fun configurarRV() {
         val layoutManager = LinearLayoutManager(context)
-        val arrClientesAct = arrCliente.toTypedArray()
-        val adaptador = AdaptadorClientesActivos(arrClientesAct)
         rvClientesActivos.layoutManager = layoutManager
-        rvClientesActivos.adapter = adaptador
+        adaptador = AdaptadorClientesActivos(arrCliente)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +50,6 @@ class FragNuevoCliente : Fragment(), ClickListener {
         configurarRV()
         leerTokensGenerados()
     }
-
 
     fun leerTokensGenerados(){
         //tokens Generados
@@ -128,6 +126,11 @@ class FragNuevoCliente : Fragment(), ClickListener {
                 val imagenVendedor = snapshot.child("imagen").value.toString()
                 arrCliente.add(UsuarioRecibe(nombreVendedor,true,imagenVendedor,descripcionObjeto))
 
+                activity?.runOnUiThread{
+                    adaptador.arrClientesActivos = arrCliente
+                    adaptador.notifyDataSetChanged()
+
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -162,6 +165,12 @@ class FragNuevoCliente : Fragment(), ClickListener {
                                     descripcionObjeto
                                 )
                             )
+
+                            activity?.runOnUiThread{
+                                adaptador.arrClientesActivos = arrCliente
+                                adaptador.notifyDataSetChanged()
+
+                            }
                             leerTokensAgregados()
                         }
 

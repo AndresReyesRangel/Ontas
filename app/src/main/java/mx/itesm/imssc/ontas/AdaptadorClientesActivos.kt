@@ -1,23 +1,39 @@
 package mx.itesm.imssc.ontas
 
+import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.androidnetworking.AndroidNetworking
+import com.androidnetworking.error.ANError
+import com.androidnetworking.interfaces.BitmapRequestListener
 import kotlinx.android.synthetic.main.tarjetas_clientes_activos.view.*
 
 //Autor: Emiliano Gómez
-class AdaptadorClientesActivos (private val arrClientesActivos: Array<UsuarioRecibe>):
+class AdaptadorClientesActivos (var arrClientesActivos: MutableList<UsuarioRecibe>):
     RecyclerView.Adapter<AdaptadorClientesActivos.vistaRenglonAct>() {
 
     var listener: ClickListener? = null
 
         class vistaRenglonAct(val vistaRenglonCliente: View): RecyclerView.ViewHolder(vistaRenglonCliente){
             fun set(cliente: UsuarioRecibe){
-                if(cliente.Activo == true){
-                    vistaRenglonCliente.tvNomClienteActivo.text = cliente.nombreCliente
-                    vistaRenglonCliente.tvProducto.text = cliente.descripcionObjeto
-                }
+                vistaRenglonCliente.tvNomClienteActivo.text = cliente.nombreCliente
+                vistaRenglonCliente.tvProducto.text = cliente.descripcionObjeto
+
+                AndroidNetworking.get(cliente.imagen)
+                    .build()
+                    .getAsBitmap(object : BitmapRequestListener{
+                        override fun onResponse(response: Bitmap?) {
+                            vistaRenglonCliente.imgPerfilActivo.setImageBitmap(response)
+                        }
+
+                        override fun onError(anError: ANError?) {
+                            println("Error")
+                        }
+                    })
+
             }
         }
 

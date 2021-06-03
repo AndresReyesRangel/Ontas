@@ -14,6 +14,8 @@ class ClienteActivo : AppCompatActivity() {
 
     private lateinit var  baseDatos: FirebaseDatabase
     private lateinit var listaClientes: MutableList<UsuarioRecibe>
+    private lateinit var arrTokensAgregados: MutableList<String>
+    private lateinit var arrTokensGenerados: MutableList<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,27 +30,128 @@ class ClienteActivo : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        leerDatos()
+        leerTokensGenerados()
     }
 
-    fun leerDatos(){
-        val uidUsuarioRecibe = FirebaseAuth.getInstance().currentUser.uid
-        val referencia = baseDatos.getReference("/$uidUsuarioRecibe/TokensAgregados/")
-
-        referencia.addListenerForSingleValueEvent(object: ValueEventListener {
+    fun leerTokensGenerados(){
+        //tokens Generados
+        val userIUD=FirebaseAuth.getInstance().currentUser.uid
+        val referenciaGenerados= baseDatos.getReference("$userIUD/TokensGenerados/")
+        referenciaGenerados.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
+                println("Recibe datos"+ snapshot.toString())
+                arrTokensGenerados.clear()
                 listaClientes.clear()
-                for(clientes in snapshot.children){
-                    val cliente = clientes.getValue(UsuarioRecibe::class.java)
-                    if (cliente != null) {
-                        listaClientes.add(cliente)
-                    }
+                for(generados in snapshot.children){
+                    arrTokensGenerados.add(generados.key.toString())
                 }
+                println(arrTokensGenerados)
+                checarClientes()
             }
 
             override fun onCancelled(error: DatabaseError) {
-                //Toast.makeText(context, "Error al obtener información del cliente", Toast.LENGTH_SHORT).show()
+                println("Error al buscar datos")
             }
         })
+    }
+
+    fun leerTokensAgregados(){
+        //Tokens agregados
+        val userIUD=FirebaseAuth.getInstance().currentUser.uid
+        val referenciaAgregados=baseDatos.getReference("$userIUD/TokensAgregados/")
+        referenciaAgregados.addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                arrTokensAgregados.clear()
+                for(agregados in snapshot.children){
+                    arrTokensAgregados.add(agregados.key.toString())
+                }
+                println(arrTokensAgregados)
+                checarVendedores()
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                println("Error al subir datos")
+            }
+        })
+    }
+
+    private fun checarVendedores() {
+        for(token in arrTokensAgregados){
+            val tokenint = token.toInt()
+            val referenciaToken=baseDatos.getReference("Token/$tokenint/UsuarioRecibe")
+            referenciaToken.addValueEventListener(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.hasChildren()) {
+                        val activo = snapshot.child("activo").value.toString()
+                        val activoBool = activo.toBoolean()
+                        if (activoBool) {
+                            agregarVendedor(tokenint)
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    println("Error al subir datos")
+                }
+
+            })
+        }
+    }
+
+    private fun agregarVendedor(tokenint: Int) {
+        val nuevaReferencia=baseDatos.getReference("Token/$tokenint/UsuarioGenerador")
+        nuevaReferencia.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val nombreVendedor=snapshot.child("nombreCliente").value.toString()
+                val descripcionObjeto=snapshot.child("descripcionObjeto").value.toString()
+                val imagenVendedor = snapshot.child("imagen").value.toString()
+                listaClientes.add(UsuarioRecibe(nombreVendedor,true,imagenVendedor,descripcionObjeto))
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                println("Error")
+            }
+
+        })
+    }
+
+    private fun checarClientes(){
+        for(token in arrTokensGenerados){
+            val tokenint = token.toInt()
+            val referenciaToken=baseDatos.getReference("Token/$tokenint/UsuarioRecibe")
+            referenciaToken.addListenerForSingleValueEvent(object: ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    println("checar cliente"+snapshot)
+                    if (snapshot.hasChildren()) {
+                        val activo = snapshot.child("activo").value.toString()
+                        val activoBool = activo.toBoolean()
+
+                        if (activoBool) {
+                            val nombreCliente = snapshot.child("nombreCliente").value.toString()
+                            val descripcionObjeto =
+                                snapshot.child("descripcionObjeto").value.toString()
+                            val imagenCliente = snapshot.child("imagen").value.toString()
+
+                            listaClientes.add(
+                                UsuarioRecibe(
+                                    nombreCliente,
+                                    activoBool,
+                                    imagenCliente,
+                                    descripcionObjeto
+                                )
+                            )
+                            leerTokensAgregados()
+                        }
+
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    println("Error")
+                }
+
+            })
+        }
     }
 }
