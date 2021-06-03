@@ -163,12 +163,15 @@ class ClienteActivo : AppCompatActivity() {
             .setTitle("Desactivar Cliente?")
             .setMessage("Una vez hecho no podrá volverse a reactivar")
             .setPositiveButton("Aceptar", DialogInterface.OnClickListener { dialogInterface, i ->
-                val basedatos = FirebaseDatabase.getInstance()
                 val cliente = intent.getIntExtra("CLIENTE",-1)
-                val referencia = basedatos.getReference("Token/${arrTokensGenerados[cliente]}/UsuarioRecibe")
-                referencia.child("activo").setValue("false")
-                listaClientes[cliente].Activo = !listaClientes[cliente].Activo
-                })
+                for(token in arrTokensGenerados){
+                    val tokenint = token.toInt()
+                    val ref = baseDatos.getReference("Token/$tokenint/UsuarioRecibe")
+                    if(ref.equals(listaClientes[cliente]))
+                        ref.child("activo").setValue("false")
+                        listaClientes[cliente].Activo = false
+                }
+            })
             .setNegativeButton("Cancelar", null)
             .setIcon(android.R.drawable.ic_dialog_alert)
 
