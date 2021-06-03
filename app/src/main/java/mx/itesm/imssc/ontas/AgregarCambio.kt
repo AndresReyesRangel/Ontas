@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_agregar_cambio.*
 import org.json.JSONObject
 
 //Clase hecha por Javier Martínez
+//arriba el boca papa
 class AgregarCambio : AppCompatActivity() {
     private lateinit var baseDatos: FirebaseDatabase
     private lateinit var arrTokensRegistrados: MutableList<Int>
