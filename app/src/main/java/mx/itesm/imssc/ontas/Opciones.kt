@@ -38,15 +38,11 @@ class Opciones : Fragment() {
     //Falta conectar a firebase para que haga la jalación :)
 
     fun hacerSignOut(v: View) {
-        mAuth.currentUser?.delete()
-            /*
-            .addOnSuccessListener {
-            val logOut = Intent(contexto, MainActivity::class.java)
-            startActivity(logOut)
-            Toast.makeText(contexto, "Se ha cerrado tu sesión", Toast.LENGTH_SHORT).show()
-        }.addOnFailureListener {
-            Toast.makeText(contexto, "Ocurrio un error ${it.message}", Toast.LENGTH_SHORT).show()
-        }*/
+
+
+    val logOut = Intent(contexto, MainActivity::class.java)
+        startActivity(logOut)
+
     }
 
 }
