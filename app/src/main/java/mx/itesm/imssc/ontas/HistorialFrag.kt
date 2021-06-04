@@ -53,7 +53,7 @@ class HistorialFrag : Fragment() {
 
     private fun leerHistorialTokens() {
         //Historial de tokens Generados
-        val userIUD=FirebaseAuth.getInstance().currentUser.uid
+        val userIUD=FirebaseAuth.getInstance().currentUser?.uid
         val referenciaGenerados= baseDatos.getReference("$userIUD/TokensGenerados/")
         referenciaGenerados.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -78,7 +78,7 @@ class HistorialFrag : Fragment() {
     }
     private  fun descargarTokensRecibidos(){
         //Historial de tokens agregados
-        val userIUD=FirebaseAuth.getInstance().currentUser.uid
+        val userIUD=FirebaseAuth.getInstance().currentUser?.uid
         val referenciaAgregados=baseDatos.getReference("$userIUD/TokensAgregados/")
         referenciaAgregados.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
