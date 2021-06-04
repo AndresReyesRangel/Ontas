@@ -20,7 +20,6 @@ class Opciones : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -39,10 +38,16 @@ class Opciones : Fragment() {
 
     fun hacerSignOut(v: View) {
 
-
-    val logOut = Intent(contexto, MainActivity::class.java)
+        val logOut = Intent(contexto, MainActivity::class.java)
         startActivity(logOut)
-
+            /*
+            .addOnSuccessListener {
+            val logOut = Intent(contexto, MainActivity::class.java)
+            startActivity(logOut)
+            Toast.makeText(contexto, "Se ha cerrado tu sesión", Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener {
+            Toast.makeText(contexto, "Ocurrio un error ${it.message}", Toast.LENGTH_SHORT).show()
+        }*/
     }
 
 }

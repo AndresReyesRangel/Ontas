@@ -11,27 +11,14 @@
         android:id="@+id/btnInicioSesion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="100dp"
+        android:layout_marginEnd="16dp"
         android:backgroundTint="#EFDD8D"
         android:clickable="true"
-        android:onClick="botonInicio"
-        android:text="Log in"
+        android:text="Iniciar Sesion"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-    <Button
-        android:id="@+id/btnSignIn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#EFDD8D"
-        android:clickable="true"
-        android:onClick="createAccount"
-        android:text="Sign in"
-        android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
@@ -98,7 +85,7 @@
         android:layout_marginEnd="8dp"
         android:backgroundTint="#353535"
         android:onClick="signIn"
-        android:text="Log in with other account"
+        android:text="Create an account"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
