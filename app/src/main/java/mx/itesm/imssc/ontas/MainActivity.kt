@@ -123,8 +123,7 @@ class MainActivity : AppCompatActivity() {
 
             //Si ya está firmado entonces mandar a la pantalla principal
 
-            val intInicioSesion = Intent(baseContext, MenuPrincipal::class.java)
-            startActivity(intInicioSesion)
+            AuthUI.getInstance().signOut(this)
         }else{
             println("Hacer Login......")
         }
